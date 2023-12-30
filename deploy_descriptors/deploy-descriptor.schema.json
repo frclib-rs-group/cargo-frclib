@@ -1,0 +1,119 @@
+{
+    "schemaDescription": {
+        "name": "Deploy Descriptor",
+        "description": "A descriptor for the deploy script",
+        "version": "1.0.0",
+        "example": {
+            "root_user": "admin",
+            "root_pass": "",
+            "path": "/home/lvuser/",
+            "stop_cmd": "frcKillRobot.sh",
+            "start_cmd": "frcRunRobot.sh",
+            "dep_lib_path": "./lib",
+            "extra_files_path": "./deploy",
+            "serial_getter": {
+                "url": "http://$ADDR$/nisysdetails/system",
+                "method": "POST",
+                "headers": null,
+                "parser": {
+                    "format": "json",
+                    "keys": [
+                        "system.serialNumber"
+                    ]
+                }
+            },
+            "pinger": {
+                "url": "http://$ADDR$/nisysdetails/ping",
+                "method": "GET",
+                "headers": null
+            }
+        }
+    },
+    "schema": {
+        "type": "object",
+        "properties": {
+            "root_user": {
+                "type": "string",
+                "description": "The username of the root user on the target"
+            },
+            "root_pass": {
+                "type": "string",
+                "description": "The password of the root user on the target"
+            },
+            "path": {
+                "type": "string",
+                "description": "The unix path to the deploy directory on the target",
+                "default": "~"
+            },
+            "stop_cmd": {
+                "type": "string",
+                "description": "The command to stop the robot-code on the target"
+            },
+            "start_cmd": {
+                "type": "string",
+                "description": "The command to start the robot-code on the target"
+            },
+            "dep_lib_path": {
+                "type": "string",
+                "description": "The path to the deploy libraries relative to the deploy directory on the target",
+                "default": "./lib"
+            },
+            "extra_files_path": {
+                "type": "string",
+                "description": "The path to the extra files relative to the deploy directory on the target",
+                "default": "./deploy"
+            },
+            "serial_getter": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "description": "The url to get the serial number from, will interpolate $ADDR$ with the address of the target"
+                    },
+                    "method": {
+                        "type": "string",
+                        "description": "The method to use to get the serial number from the target",
+                        "default": "POST"
+                    },
+                    "headers": {
+                        "type": "object",
+                        "description": "Additional headers to send with the request",
+                        "default": null
+                    },
+                    "parser": {
+                        "type": "object",
+                        "properties": {
+                            "format": {
+                                "type": "json|xml|regex",
+                                "description": "The format of the keys"
+                            },
+                            "paths": {
+                                "type": "array",
+                                "description": "The keys to the serial number in the response"
+                            }
+                        }
+                    }
+                }
+            },
+            "pinger": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "description": "The url to use, will interpolate $ADDR$ with the address of the target"
+                    },
+                    "method": {
+                        "type": "string",
+                        "description": "The method to use to ping the target",
+                        "default": "GET"
+                    },
+                    "headers": {
+                        "type": "object",
+                        "description": "Additional headers to send with the request",
+                        "default": null
+                    }
+                }
+            }
+        }
+    }
+}

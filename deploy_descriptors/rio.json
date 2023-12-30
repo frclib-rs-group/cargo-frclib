@@ -1,0 +1,24 @@
+{
+    "root_user": "admin",
+    "root_pass": "",
+    "path": "/home/lvuser/",
+    "stop_cmd": "frcKillRobot.sh",
+    "start_cmd": "frcRunRobot.sh",
+    "dep_lib_path": "./lib",
+    "serial_getter": {
+        "url": "http://$ADDR$/nisysdetails/system",
+        "method": "POST",
+        "headers": null,
+        "parser": {
+            "format": "json",
+            "paths": [
+                "system.serialNumber"
+            ]
+        }
+    },
+    "pinger": {
+        "url": "http://$ADDR$/nisysdetails/ping",
+        "method": "GET",
+        "headers": null
+    }
+}

@@ -1,0 +1,42 @@
+[package]
+name = "cargo-frc"
+version = "0.1.0"
+edition = "2021"
+categories = ["development-tools::cargo-plugins", "development-tools::debugging"]
+keywords = ["cargo", "subcommand", "macros"]
+
+
+[dependencies]
+cargo-subcommand-metadata = "0.1.0"
+cargo_metadata = "0.18.1"
+clap = {version = "4.4", features = ["derive"]}
+thiserror = "1.0.51"
+serde = { version = "1.0.193", features = ["derive"] }
+serde_json = "1.0.108"
+# ratatui = "0.25.0"
+russh = "0.40.2"
+russh-keys = "0.40.1"
+russh-sftp = {git = "https://github.com/AspectUnk/russh-sftp.git", branch = "master"}
+tokio = { version = "1.35.*", features = ["full", "tracing"] }
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
+reqwest = "0.11.23"
+async-trait = "0.1.75"
+relative-path = "1.9.2"
+gix = "0.57.0"
+
+[package.metadata.frc]
+team = 1234
+robots = [
+    { name = "yin", serials = ["123456", "abcdef"], default = true},
+    { name = "yang", serials = ["1f2e3d"] },
+]
+override-address = "10.12.34.2"
+deploy-dir = "./deploy"
+default-check = "sim"
+
+[package.metadata.frc.git]
+competitions = [
+    { acronymn = "flr", start = "1000-12-01", end = "1000-12-03" },
+    { acronymn = "sfr", start = "2000-01-01", end = "2000-01-03" },
+]
